@@ -64,6 +64,8 @@ class Server:
                         member.conn.send(data)
         except:
             client.disconnect()
+            self.active_members.remove(client)
+            self.cnt_members -= 1
 
     def close(self):
         print("[-] Closing the server Gracefully")
