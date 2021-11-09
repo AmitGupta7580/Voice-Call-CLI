@@ -24,7 +24,7 @@ Created in both Python and Java language
 - Create a VM on AZURE cloud with public IP enable in the Network Interface.
 - Change the Inbound Rule in Networking and allow port `5000` for communication.
 - Login to VM via ssh client : `putty` or terminal
-- Run `scp server.py username@IP:~/` in the terminal to upload the server code file.
+- Run `scp server.py username@IP:~/` in the terminal or clone this git repo `git clone https://github.com/AmitGupta7580/Voice-Call-CLI.git` to get the server code file on VM.
 
 ### Usage
 - Run `python server.py` in the terminal.
