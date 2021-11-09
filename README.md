@@ -10,8 +10,13 @@ Created in both Python and Java language
   - Run `pip install pyaudio` in the terminal.
   - Change the host IP with your server IP.
   - Run `python client.py` in the terminal.
+
 ### Java
-Coming Soon...
+- Audio Library : (javax.sound.sampled.*)
+- Usage:
+  - Compile java code `javac client.java` in the terminal.
+  - Run `java Client` in the terminal.
+  - Enter the server IP in the poped dialogbox.
 
 ## Server
 
