@@ -38,8 +38,8 @@ class Client:
     def start(self):
         self.shutdown = False
 
-        self.send_thread.start()
         self.recieve_thread.start()
+        self.send()
 
     def send(self):
         while not self.shutdown:
@@ -49,6 +49,7 @@ class Client:
             except:
                 print("[-] Server Connection Lost :(")
                 break
+        self.close()
 
     def receive(self):
         while not self.shutdown:
@@ -62,12 +63,9 @@ class Client:
         print("[-] Closing the client gracefully ..")
         self.shutdown = True
 
-        self.send_thread.join()
         self.recieve_thread.join()
 
-        self.input_stream.stop()
         self.input_stream.close()
-        self.output_stream.stop()
         self.output_stream.close()
         self.audio_pipe.terminate()
 
