@@ -12,6 +12,7 @@ class Member:
 
     def disconnect(self):
         self.conn.close()
+        print("[-] Client Disconnected: {self.addr}")
         self.log_client("Disconnected")
 
     def log_client(self, status):
@@ -34,12 +35,14 @@ class Server:
         self.members_thread = []
 
     def start(self):
-        self.log_server(f"[+] Service started at {self.host}:{self.port}")
+        print(f"[+] Service started at {self.host}:{self.port}")
+        self.log_server(f"Service started at {self.host}:{self.port}")
         while(True):
             conn, addr = self.server.accept()
             member = Member(conn, addr)
             self.cnt_member += 1
-            self.log_server(f"[+] Got connection from {addr}, Total clients : {self.cnt_member}")
+            print(f"[+] Got connection from {addr}, Total clients : {self.cnt_member}")
+            self.log_server(f"Got connection from {addr}, Total clients : {self.cnt_member}")
 
             member_thread = threading.Thread(target = self.handel_client, args = (member, ))
             
@@ -56,12 +59,14 @@ class Server:
                 data = client.conn.recv(4096)
                 for member in self.active_members:
                     if member.addr != client.addr:
-                        # filter whom this message has to be sended
-                        client.conn.send(data)
+                        # filter whom this message has to be sended 
+                        # currently it sending message to all other members except you
+                        member.conn.send(data)
         except:
             client.disconnect()
 
     def close(self):
+        print("[-] Closing the server Gracefully")
         log_server("Closing the server Gracefully")
 
         for member in self.active_members:
